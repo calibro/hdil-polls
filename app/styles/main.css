@@ -1,0 +1,453 @@
+body {
+  font-family: 'Titillium Web', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: white;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-weight: bold;
+}
+
+#loading-bar .bar {
+  background-color: white;
+  height: 3px;
+}
+
+.blue-italia{
+  color: #0066CC;
+}
+
+.blue-light-italia{
+  color:#00C5CA;
+}
+
+.gray.light{
+  color:#5A6772;
+}
+
+.gray{
+  color: #5A6772;
+}
+
+.navbar-default{
+  background-color: #0066CC;
+  border-color: transparent;
+}
+
+.navbar-default .navbar-brand{
+  color: white;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus{
+  color: #65dde0;
+}
+
+.navbar-default .navbar-nav > li > a{
+  color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus{
+  color: #65dde0;
+}
+
+.navbar{
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+
+.container-wrapper{
+  width: 100%;
+  background-image: linear-gradient(134deg, #004D99 0%, #0066CC 34%, #00C5CA 64%, #65DDE0 100%);
+}
+
+.home-container{
+  height: calc(100vh - 52px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.home-container h1{
+  font-size: 40px;
+  line-height: 48px;
+}
+
+.home-container p{
+  font-size: 21px;
+  margin-bottom: 30px;
+}
+
+.btn-explore{
+  text-transform: uppercase;
+  color: #0066CC;
+  font-weight: bold;
+}
+
+.btn-explore.btn-default:hover {
+    color: #0066CC;
+}
+
+.btn-explore.btn-default:active:hover,
+.btn-explore.btn-default.active:hover,
+.btn-explore.btn-default:active:focus,
+.btn-explore.btn-default.active:focus,
+.btn-explore.btn-default:active.focus,
+.btn-explore.btn-default.active.focus,{
+  color: #0066CC;
+}
+
+.btn-explore.btn-lg{
+  border-radius: 0px;
+}
+
+/* explore */
+
+.explore-container{
+  height: calc(100vh - 52px);
+  overflow: hidden;
+}
+
+.filter-container{
+  background-color: #5A6772;
+  height: calc(100vh - 52px);
+  overflow-y: scroll;
+}
+
+.viz-container{
+  background-color: #F2F2ED;
+  height: calc(100vh - 52px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-controller,
+.table-pagination{
+  flex-grow: 0;
+}
+
+.table-controller {
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.table-controller h6{
+  color: #5A6772;
+  font-weight: 400;
+}
+
+.table-controller .btn-primary {
+  background: transparent;
+  color: #5A6772;
+  border:none;
+  padding: 6px 0;
+  border-radius: 0;
+  margin-right: 12px;
+  text-transform: capitalize;
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+.btn-primary:active:hover, .btn-primary.active:hover{
+  background: transparent;
+  box-shadow: none;
+  color: #5A6772;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.table-controller .btn-primary.active{
+  box-shadow: none;
+  border-bottom: 4px #0066CC solid;
+  font-weight: 700;
+  color: #0066CC;
+  opacity: 1;
+}
+
+.normalizza {
+  padding-top: 45px;
+  text-transform: capitalize;
+  color: #5A6772;
+  font-size: 18px;
+}
+
+.table-pagination{
+    text-align: center;
+}
+
+.table-pagination .notPaginated{
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.table-container{
+  flex-grow: 1;
+  overflow-y: hidden;
+  display: flex;
+}
+
+.table > thead > tr > th {
+  text-transform: capitalize;
+}
+
+
+#mainTable {
+  background: white;
+  color: black;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: 0px;
+  font-size: 16px;
+}
+
+#mainTable thead {
+  display: block;
+  background-color: #F2F2ED;
+}
+
+#mainTable thead {
+  display: block;
+}
+#mainTable thead > tr {
+  display: flex;
+}
+#mainTable thead > tr > th {
+  flex: 1 1;
+}
+
+#mainTable thead > tr > th:nth-child(2) {
+  flex: 0 0 10%;
+}
+
+
+#mainTable tbody {
+  overflow-y: auto;
+  width: 100%;
+}
+
+#mainTable tbody {
+  display: block;
+}
+
+#mainTable tbody > tr {
+  display: flex;
+}
+
+#mainTable tbody > tr > td {
+  flex: 1 1;
+}
+
+#mainTable tbody > tr > td:nth-child(2) {
+  flex: 0 0 10%;
+}
+
+#mainTable thead > tr > th.vizCell,
+#mainTable tbody > tr > td.vizCell{
+  flex: 0 1 30%;
+}
+
+#mainTable thead > tr > th.titleCell,
+#mainTable tbody > tr > td.titleCell{
+  flex: 0 1 25%;
+}
+
+.rowInfo {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.dts-tooltip{
+  font-family: 'Titillium Web', Arial, sans-serif;
+}
+
+/* slider */
+
+.rzslider .rz-bubble.rz-limit,
+.rzslider .rz-bubble{
+  color: white;
+}
+
+.rzslider .rz-pointer{
+  background-color: #00C5CA;
+}
+
+.rzslider .rz-selection {
+    background: #00C5CA;
+}
+
+/* filters */
+
+.filter-wrapper{
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 300px;
+  min-height: 100px;
+  position: relative;
+}
+
+.filter-dts-loading{
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:40%;
+}
+
+.filter-checkbox-wrapper{
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+
+.accordion {
+  width: 100%;
+  padding: 10px 0;
+  border-top: 1px solid #E1D4D4;
+  font-size: 18px;
+  color: #FFFFFF;
+  line-height: 32px;
+  text-transform: capitalize;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.accordion i{
+  float:right;
+  padding-top: 5px;
+}
+
+.slider-container h5{
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #FFFFFF;
+  font-weight: 400;
+}
+
+.in {
+  margin-bottom: 30px;
+}
+
+.filter-controls{
+  float: right;
+  margin-bottom: 5px;
+  margin-top: 2px;
+}
+
+.filter-controls span{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.filter-tempo {
+  border-bottom: 1px solid #E1D4D4;
+}
+
+.statsInfo{
+  padding: 30px 0;
+}
+
+.statsInfo p {
+  font-size: 18px;
+}
+
+.filter-controls .form-group{
+  float: left;
+  margin-left: 0;
+}
+
+.filter-checkbox-wrapper .btn-default {
+    color: #333;
+    color: #DDDDDD;
+    background-color: transparent;
+    border-color: #ccc;
+    margin-right: 3px;
+}
+
+
+
+/* bars */
+
+.odabes-bar{
+  background-color:#00C5CA;
+  height: 20px;
+  display: block;
+}
+
+.fitCell{
+  text-align: right;
+}
+
+.titleCell{
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* timeline */
+.odabes-timeline{
+  width: 100%;
+  display: block;
+  min-height: 1px;
+  height: calc(100% - 5px);
+}
+
+.xAxis{
+  font-family: 'Titillium Web', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.xAxis .tick text{
+  fill:#9B9B9B;
+}
+
+.xAxis .domain{
+  display: none;
+}
+
+.odabes-timeline .xAxis .tick line{
+  stroke:#ddd;
+}
+
+.odabes-timeline .xAxis .tick text{
+  display: none;
+}
+
+/* errors */
+
+.alert-errors{
+  position: fixed;
+  bottom: 0;
+  left:0;
+  right: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-left: 10px red solid;
+  border-top: 1px red solid;
+  border-right: 1px red solid;
+  background: white;
+  color: black;
+  z-index: 9999;
+}
+
+.alert-errors h3{
+  display: inline-block;
+}
+
+.alert-errors .close{
+  margin-top:20px;
+  color: red;
+}
+
+/* utilities */
+
+.flex{
+  display: flex;
+}
