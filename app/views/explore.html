@@ -1,4 +1,138 @@
 <div class="container-fluid explore-container">
+  <div class="row thumbs-container">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h4>Seleziona l'infografica</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2" ng-repeat="viz in vizs">
+            <div class="thumb-viz" ng-click="changeViz(viz)" ng-class="{'thumb-viz-active': viz.id == vizSelected.id }" ng-style="{'background-image':'url(' + viz.thumb + ')'}" >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-controller">
+  <div class="container">
+    <div class="row table-controller">
+      <div class="col-sm-12">
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-model="tabModel" uib-btn-radio="'info'">Infografica</label>
+            <label class="btn btn-primary" ng-model="tabModel" uib-btn-radio="'distribution'">Distribuzione delle risposte</label>
+            <label class="btn btn-primary" ng-model="tabModel" uib-btn-radio="'correlation'">Correlazione fra le risposte</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="info" class="container" ng-show="tabModel == 'info'">
+  <div class="row">
+    <div class="col-sm-6">
+      <h5>descrizione:</h5>
+      <p>
+        {{vizSelected.titolo}}
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <iframe
+        iframesrc
+        frameborder="0"
+        src=""
+        width="100%"
+        height="700"></iframe>
+    </div>
+  </div>
+</div>
+
+<div id="distribution" class="container" ng-show="tabModel == 'distribution' || tabModel == 'correlation'">
+  <div class="row">
+    <div class="col-sm-9">
+      <div ng-show="tabModel == 'distribution'">
+        ciao dist
+      </div>
+      <div ng-show="tabModel == 'correlation'">
+        ciao correlation
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <h4>filtri</h4>
+      <div class="filter-head">
+        <h6>età</h6>
+        <div class="reset" ng-click="filterBarsReset('age')">
+          reset
+        </div>
+      </div>
+      <div ng-repeat="age in ages track by age.key">
+       <div class="row-label">
+         {{age.key? labelDict['age'][age.key] :'sconosciuto'}}
+       </div>
+       <div class="bars-container">
+         <div class="bar"
+              ng-class="{'bar-inactive': checkBarInactive('age',age.key)}"
+              ng-click="filterBars('age',age.key)"
+              ng-style="{'width': devicesScale(age.value) + '%'}">
+         </div>
+         <div class="bar-value">
+             {{age.value}}
+         </div>
+       </div>
+      </div>
+
+      <div class="filter-head">
+        <h6>dispositivo</h6>
+        <div class="reset" ng-click="filterBarsReset('device')">
+          reset
+        </div>
+      </div>
+      <div ng-repeat="device in devices track by device.key">
+       <div class="row-label">
+         {{device.key?labelDict['device'][device.key]:'sconosciuto'}}
+       </div>
+       <div class="bars-container">
+         <div class="bar"
+              ng-class="{'bar-inactive': checkBarInactive('device',device.key)}"
+              ng-click="filterBars('device',device.key)"
+              ng-style="{'width': devicesScale(device.value) + '%'}">
+         </div>
+         <div class="bar-value">
+             {{device.value}}
+         </div>
+       </div>
+      </div>
+
+      <div class="filter-head">
+        <h6>genere</h6>
+        <div class="reset" ng-click="filterBarsReset('sex')">
+          reset
+        </div>
+      </div>
+      <div ng-repeat="sex in sexes track by sex.key">
+       <div class="row-label">
+         {{sex.key?labelDict['sex'][sex.key]:'sconosciuto'}}
+       </div>
+       <div class="bars-container">
+         <div class="bar"
+              ng-class="{'bar-inactive': checkBarInactive('sex',sex.key)}"
+              ng-click="filterBars('sex',sex.key)"
+              ng-style="{'width': devicesScale(sex.value) + '%'}">
+         </div>
+         <div class="bar-value">
+             {{sex.value}}
+         </div>
+       </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <div class="alert-errors" ng-show="errors">

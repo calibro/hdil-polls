@@ -10,19 +10,20 @@
 angular.module('hdilPollsApp')
 .factory('apiservice', function ($http, $q) {
 
-  var resourceEnpoint = 'https://www.dati.lombardia.it/resource/';
-  var viewEndpoint = 'https://www.dati.lombardia.it/views/';
-  var token = "TBT9Tm1QSXZ4rGrsVGYYIbRrG";
+  var spreadsheetId = '2PACX-1vScPN9yhHnab1Jdv-sRzW4mPG4_YtUivb7jGfS-T9JzdzA6kdUm7wbJ-fXT-COLBq_6ozPzgtQK0iao';
+  var gdriveBaseUrl = 'https://docs.google.com/spreadsheets/d/e/' + spreadsheetId + '/pub';
+
 
   return {
 
-    getRowsCount : function(datasetId){
+    getSpreadsheetData : function(){
       var params = {
-        "$$app_token" : token,
-        "$query": 'select count(*) as count'
+        gid:'112972804',
+        single:'true',
+        output:'tsv'
       }
 
-      var url = resourceEnpoint + datasetId;
+      var url = gdriveBaseUrl;
       var deferred = $q.defer();
 
       $http.get(url, {params:params})
@@ -36,36 +37,16 @@ angular.module('hdilPollsApp')
         )
       return deferred.promise;
     },
-    getDataset : function(datasetId, limit){
-
+    getSpreadsheetViz : function(){
       var params = {
-        "$$app_token" : token,
-        "$limit": limit
+        gid:'7267316',
+        single:'true',
+        output:'tsv'
       }
 
-      var url = resourceEnpoint + datasetId;
-
+      var url = gdriveBaseUrl;
       var deferred = $q.defer();
-      $http.get(url, {params:params})
-        .then(
-          function(response){
-            deferred.resolve(response.data);
-          },
-          function(err){
-            deferred.reject(err);
-          }
-        )
-      return deferred.promise;
-    },
-    getDatasetInfo: function(datasetId){
 
-      var params = {
-        "$$app_token" : token
-      }
-
-      var url = viewEndpoint + datasetId;
-
-      var deferred = $q.defer();
       $http.get(url, {params:params})
         .then(
           function(response){
@@ -77,6 +58,5 @@ angular.module('hdilPollsApp')
         )
       return deferred.promise;
     }
-
   };
 });
