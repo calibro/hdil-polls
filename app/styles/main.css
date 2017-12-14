@@ -196,6 +196,32 @@ h1,h2,h3,h4,h5,h6{
   border-radius: 0px;
 }
 
+
+.xAxis,
+.yAxis{
+  font-family: 'Titillium Web', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.xAxis .tick text,
+.yAxis .tick text{
+  fill:#9B9B9B;
+}
+
+.xAxis .domain{
+  display: none;
+}
+
+.yAxis .domain{
+  stroke: #9B9B9B;
+}
+
+.yAxis .tick line{
+  stroke: #9B9B9B;
+  stroke-dasharray: 3,3;
+}
+
 /* OLD */
 
 /* explore */
@@ -487,19 +513,6 @@ h1,h2,h3,h4,h5,h6{
   height: calc(100% - 5px);
 }
 
-.xAxis{
-  font-family: 'Titillium Web', Arial, sans-serif;
-  font-weight: 400;
-  font-size: 10px;
-}
-
-.xAxis .tick text{
-  fill:#9B9B9B;
-}
-
-.xAxis .domain{
-  display: none;
-}
 
 .odabes-timeline .xAxis .tick line{
   stroke:#ddd;

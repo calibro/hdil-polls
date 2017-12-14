@@ -17,7 +17,7 @@
   function violin(selection){
     selection.each(function(data){
       var chart;
-      var margin = {top: 10, right: 10, bottom: 15, left: 15},
+      var margin = {top: 10, right: 10, bottom: 20, left: 15},
           chartWidth = width - margin.left - margin.right,
           chartHeight = height - margin.top - margin.bottom;
 
@@ -49,7 +49,7 @@
 
       var groupWidth = xViolinScale.bandwidth();
 
-      var gViolins = chart.selectAll('g')
+      var gViolins = chart.selectAll('g.g-violins')
         .data(data, function(d){return d.key})
 
       gViolins.enter().append("g")
@@ -151,6 +151,8 @@
           return area(d.values)
         })
 
+      /* axis */
+
       var xAxis = chart.select('.xAxis');
 
       if(xAxis.empty()){
@@ -158,10 +160,10 @@
             .attr('class', 'xAxis')
             .attr("transform", "translate(0," + chartHeight + ")")
             .call(
-              d3.axisBottom(xViolinScale).tickSize(-chartHeight)
+              d3.axisBottom(xViolinScale).tickSize(0).tickPadding(10)
             );
       }else{
-        xAxis.call(d3.axisBottom(xViolinScale).tickSize(-chartHeight))
+        xAxis.call(d3.axisBottom(xViolinScale).tickSize(0).tickPadding(10))
       }
 
       var yAxis = chart.select('.yAxis');
@@ -171,11 +173,97 @@
             .attr('class', 'yAxis')
             .attr("transform", "translate(0,0)")
             .call(
-              d3.axisLeft(x).tickSize(-chartWidth).ticks(7)
+              d3.axisLeft(x).tickSize(-chartWidth).ticks(7).tickSizeOuter(0).tickPadding(10)
             );
       }else{
-        yAxis.call(d3.axisLeft(x).tickSize(-chartWidth).ticks(7))
+        yAxis.call(d3.axisLeft(x).tickSize(-chartWidth).ticks(7).tickSizeOuter(0).tickPadding(10))
       }
+
+      /* boxplot*/
+      var probs = [0.25,0.5,0.75];
+      var boxPlotData = [];
+      var boxplotWidth = 10;
+
+      data.forEach(function(d){
+        var values = []
+        var answers = [];
+        d.values.forEach(function(a){
+          if(a.key === ''){
+            d3.range(a.value).forEach(function(){
+              answers.push(0)
+            })
+          }else{
+            d3.range(a.value).forEach(function(){
+              answers.push(parseInt(a.key))
+            })
+          }
+        })
+        probs.forEach(function(p){
+          values.push(d3.quantile(answers, p))
+        })
+
+        boxPlotData.push({key:d.key, values: values, mean: d3.mean(answers)})
+      })
+
+      var gBoxplot = chart.selectAll('g.g-boxplot')
+        .data(boxPlotData, function(d){return d.key})
+
+      gBoxplot.enter().append("g")
+        .attr('class','g-boxplot')
+        .attr("transform", function(d){
+          return "translate(" + xViolinScale(d.key) +",0)"
+        })
+
+      gBoxplot.attr("transform", function(d){
+        return "translate(" + xViolinScale(d.key) +",0)"
+      })
+
+      var boxplot =  chart.selectAll('g.g-boxplot').selectAll('rect')
+                .data(function(d){
+                  return [[d.values[0],d.values[1]],[d.values[1],d.values[2]]]
+                })
+
+      boxplot.enter().append("rect")
+        .attr("fill", "#ccc")
+        .attr("stroke","#555")
+        .attr("width", boxplotWidth)
+        .attr("height", function(d){
+          return Math.abs(x(d3.max(d)) - x(d3.min(d)))
+        })
+        .attr("y", function(d){
+          return x(d3.max(d))
+        })
+        .attr("x", (groupWidth/2 - boxplotWidth/2))
+
+      boxplot.transition()
+        .attr("height", function(d){
+          return Math.abs(x(d3.max(d)) - x(d3.min(d)))
+        })
+        .attr("y", function(d){
+          return x(d3.max(d))
+        })
+        .attr("x", (groupWidth/2 - boxplotWidth/2))
+
+      var boxplotMean =  chart.selectAll('g.g-boxplot').selectAll('circle')
+                .data(function(d){
+                  return [d.mean]
+                })
+
+      boxplotMean.enter().append("circle")
+        .attr("fill", "white")
+        .attr("stroke","#555")
+        .attr("r", boxplotWidth/4)
+        .attr("cy", function(d){
+          return x(d)
+        })
+        .attr("cx", (groupWidth/2))
+
+      boxplotMean.transition()
+        .attr("cy", function(d){
+          return x(d)
+        })
+
+
 
       // var y = d3.scaleLinear()
       //           .rangeRound([chartHeight,0])
