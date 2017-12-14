@@ -13,22 +13,22 @@ angular.module('hdilPollsApp')
     $scope.vizs;
     $scope.vizSelected;
     $scope.tabModel;
+    $scope.data = [];
 
     $scope.changeViz = function(viz){
       $scope.vizSelected = viz;
 
-      Object.keys($scope.currentFilters).forEach(function(d){
-        $scope.filterBarsReset(d)
-      })
+      $scope.filterBarsResetAll()
 
       cfservice.id().filter($scope.vizSelected.id)
 
-      // initialise filters
+
+      // reset filters
       $scope.ages = cfservice.ages().all();
       $scope.devices = cfservice.devices().all();
       $scope.sexes = cfservice.sexes().all();
 
-      // max scales
+      // update max scales
 
       var max = Math.max(
         d3.max($scope.ages, function(d){return d.value}),
@@ -47,6 +47,18 @@ angular.module('hdilPollsApp')
       $scope.sexesScale = d3.scaleLinear()
         .domain([0,max])
         .range([0,90])
+
+      $scope.data = [
+        { key:'utilità', values: cfservice.utilities().all(), maxY:d3.max(cfservice.utilities().all(), function(d){return d.value})},
+        { key:'intuitività', values: cfservice.intuitivenesses().all(), maxY:d3.max(cfservice.intuitivenesses().all(), function(d){return d.value})},
+        { key:'chiarezza', values: cfservice.clarities().all(), maxY:d3.max(cfservice.clarities().all(), function(d){return d.value})},
+        { key:'informatività', values: cfservice.informativenesses().all(), maxY:d3.max(cfservice.informativenesses().all(), function(d){return d.value})},
+        { key:'bellezza', values: cfservice.beauties().all(), maxY:d3.max(cfservice.beauties().all(), function(d){return d.value})},
+        { key:'valore complessivo', values: cfservice.overalls().all(), maxY:d3.max(cfservice.overalls().all(), function(d){return d.value})}
+      ]
+
+      updateCharts()
+
     }
 
     $scope.currentFilters = {
@@ -91,12 +103,21 @@ angular.module('hdilPollsApp')
           return $scope.currentFilters[dimension].indexOf(d) > -1;
         });
       }
+      updateCharts()
 
     }
 
     $scope.filterBarsReset = function(dimension){
       $scope.currentFilters[dimension] = [];
       cfservice[dimension]().filterAll()
+      updateCharts()
+    }
+
+    $scope.filterBarsResetAll = function(dimension){
+      Object.keys($scope.currentFilters).forEach(function(d){
+        $scope.currentFilters[d] = [];
+        cfservice[d]().filterAll()
+      })
     }
 
     $scope.checkBarInactive = function(dimension,key){
@@ -106,6 +127,11 @@ angular.module('hdilPollsApp')
         return false;
       }
 
+    }
+
+    $scope.update = true;
+    var updateCharts = function(){
+      $scope.update = !$scope.update;
     }
 
     //get the data
@@ -150,6 +176,16 @@ angular.module('hdilPollsApp')
             $scope.sexesScale = d3.scaleLinear()
               .domain([0,max])
               .range([0,90])
+
+            // initialise answers
+            $scope.data = [
+              { key:'utilità', values: cfservice.utilities().all(), maxY:d3.max(cfservice.utilities().all(), function(d){return d.value})},
+              { key:'intuitività', values: cfservice.intuitivenesses().all(), maxY:d3.max(cfservice.intuitivenesses().all(), function(d){return d.value})},
+              { key:'chiarezza', values: cfservice.clarities().all(), maxY:d3.max(cfservice.clarities().all(), function(d){return d.value})},
+              { key:'informatività', values: cfservice.informativenesses().all(), maxY:d3.max(cfservice.informativenesses().all(), function(d){return d.value})},
+              { key:'bellezza', values: cfservice.beauties().all(), maxY:d3.max(cfservice.beauties().all(), function(d){return d.value})},
+              { key:'valore complessivo', values: cfservice.overalls().all(), maxY:d3.max(cfservice.overalls().all(), function(d){return d.value})}
+            ]
 
           },
           function(error){

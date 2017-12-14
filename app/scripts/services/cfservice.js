@@ -20,16 +20,22 @@ angular.module('hdilPollsApp')
       id = cf.dimension(function(d) { return d['ID']}),
       ids = id.group().reduceCount(),
       utility = cf.dimension(function(d) { return d['UTILITÀ']}),
-      // utilities = utility.group().reduceCount(),
+      utilities = utility.group().reduceCount(),
       intuitiveness = cf.dimension(function(d) { return d['INTUITIVITÀ']}),
+      intuitivenesses = intuitiveness.group().reduceCount(),
       clarity = cf.dimension(function(d) { return d['CHIAREZZA']}),
+      clarities = clarity.group().reduceCount(),
       informativeness = cf.dimension(function(d) { return d['INFORMATIVITÀ']}),
+      informativenesses = informativeness.group().reduceCount(),
       beauty = cf.dimension(function(d) { return d['BELLEZZA']}),
-      overall = cf.dimension(function(d) { return d['VALORE-COMPLESSIVO']});
+      beauties = beauty.group().reduceCount(),
+      overall = cf.dimension(function(d) { return d['VALORE-COMPLESSIVO']}),
+      overalls = overall.group().reduceCount();
+
 
       // Decide which dimension/group to expose
       var exports = {};
-
+      exports.cf = function() { return cf};
       exports.add = function(data){ cf.add(data); }; // add new items, as array
       exports.clear = function(){ cf.remove(); };// reset crossfilter
       exports.size = function() { return cf.size(); }; // crossfilter size total
@@ -43,10 +49,17 @@ angular.module('hdilPollsApp')
       exports.id = function() { return id};
       exports.ids = function() { return ids};
       exports.utility = function() { return utility};
+      exports.utilities = function() { return utilities};
       exports.intuitiveness = function() { return intuitiveness};
+      exports.intuitivenesses = function() { return intuitivenesses};
+      exports.clarity = function() { return clarity};
+      exports.clarities = function() { return clarities};
       exports.informativeness = function() { return informativeness};
+      exports.informativenesses = function() { return informativenesses};
       exports.beauty = function() { return beauty};
+      exports.beauties = function() { return beauties};
       exports.overall = function() { return overall};
+      exports.overalls = function() { return overalls};
 
 
 
