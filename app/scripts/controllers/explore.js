@@ -14,6 +14,7 @@ angular.module('hdilPollsApp')
     $scope.vizSelected;
     $scope.tabModel;
     $scope.data = [];
+    $scope.matrix = [];
 
     $scope.changeViz = function(viz){
       $scope.vizSelected = viz;
@@ -57,6 +58,18 @@ angular.module('hdilPollsApp')
         { key:'valore complessivo', values: cfservice.overalls().all(), maxY:d3.max(cfservice.overalls().all(), function(d){return d.value})}
       ]
 
+      var matrix = d3.nest()
+        .key(function(d){return d[$scope.xAxis.key.toUpperCase()] + '_' + d[$scope.yAxis.key.toUpperCase()]})
+        .rollup(function(leaves){return leaves.length})
+        .entries(cfservice.cf().allFiltered())
+
+      $scope.matrix = matrix.map(function(d){
+        var x = d.key.split('_')[0]?d.key.split('_')[0]:'0',
+            y = d.key.split('_')[1]?d.key.split('_')[1]:'0';
+        return {x:x, y:y, value: d.value}
+      })
+
+      updateMatrix()
       updateCharts()
 
     }
@@ -103,6 +116,19 @@ angular.module('hdilPollsApp')
           return $scope.currentFilters[dimension].indexOf(d) > -1;
         });
       }
+
+      var matrix = d3.nest()
+        .key(function(d){return d[$scope.xAxis.key.toUpperCase()] + '_' + d[$scope.yAxis.key.toUpperCase()]})
+        .rollup(function(leaves){return leaves.length})
+        .entries(cfservice.cf().allFiltered())
+
+      $scope.matrix = matrix.map(function(d){
+        var x = d.key.split('_')[0]?d.key.split('_')[0]:'0',
+            y = d.key.split('_')[1]?d.key.split('_')[1]:'0';
+        return {x:x, y:y, value: d.value}
+      })
+
+      updateMatrix()
       updateCharts()
 
     }
@@ -110,6 +136,19 @@ angular.module('hdilPollsApp')
     $scope.filterBarsReset = function(dimension){
       $scope.currentFilters[dimension] = [];
       cfservice[dimension]().filterAll()
+
+      var matrix = d3.nest()
+        .key(function(d){return d[$scope.xAxis.key.toUpperCase()] + '_' + d[$scope.yAxis.key.toUpperCase()]})
+        .rollup(function(leaves){return leaves.length})
+        .entries(cfservice.cf().allFiltered())
+
+      $scope.matrix = matrix.map(function(d){
+        var x = d.key.split('_')[0]?d.key.split('_')[0]:'0',
+            y = d.key.split('_')[1]?d.key.split('_')[1]:'0';
+        return {x:x, y:y, value: d.value}
+      })
+
+      updateMatrix()
       updateCharts()
     }
 
@@ -129,10 +168,39 @@ angular.module('hdilPollsApp')
 
     }
 
+    $scope.selectChange = function(){
+      var matrix = d3.nest()
+        .key(function(d){return d[$scope.xAxis.key.toUpperCase()] + '_' + d[$scope.yAxis.key.toUpperCase()]})
+        .rollup(function(leaves){return leaves.length})
+        .entries(cfservice.cf().allFiltered())
+
+      $scope.matrix = matrix.map(function(d){
+        var x = d.key.split('_')[0]?d.key.split('_')[0]:'0',
+            y = d.key.split('_')[1]?d.key.split('_')[1]:'0';
+        return {x:x, y:y, value: d.value}
+      })
+    }
+
     $scope.update = true;
     var updateCharts = function(){
       $scope.update = !$scope.update;
     }
+
+    $scope.updateMatrix = true;
+    var updateMatrix = function(){
+      $scope.updateMatrix = !$scope.updateMatrix;
+    }
+
+    $scope.$watch('tabModel',function(newValue,oldValue){
+      if(newValue != oldValue && oldValue){
+
+        if(newValue == 'distribution'){
+
+        }else if (newValue == 'correlation') {
+
+        }
+      }
+    })
 
     //get the data
 
@@ -144,11 +212,15 @@ angular.module('hdilPollsApp')
         });
         $scope.vizSelected = $scope.vizs[0];
         //$scope.tabModel = 'info';
-        $scope.tabModel = 'distribution';
+        $scope.tabModel = 'correlation';
 
         apiservice.getSpreadsheetData().then(
           function(data){
             cfservice.add(d3.tsvParse(data));
+
+            $scope.scaleMatrix = d3.range(7).map(function(d){
+              return d.toString()
+            })
 
             cfservice.id().filter($scope.vizSelected.id)
 
@@ -186,6 +258,31 @@ angular.module('hdilPollsApp')
               { key:'bellezza', values: cfservice.beauties().all(), maxY:d3.max(cfservice.beauties().all(), function(d){return d.value})},
               { key:'valore complessivo', values: cfservice.overalls().all(), maxY:d3.max(cfservice.overalls().all(), function(d){return d.value})}
             ]
+
+            //dropdown
+
+            $scope.dropdown = [
+              { key:'utilità'},
+              { key:'intuitività'},
+              { key:'chiarezza'},
+              { key:'informatività'},
+              { key:'bellezza'},
+              { key:'valore complessivo'}
+            ]
+
+            $scope.xAxis = $scope.dropdown[0];
+            $scope.yAxis = $scope.dropdown[1];
+
+            var matrix = d3.nest()
+              .key(function(d){return d[$scope.xAxis.key.toUpperCase()] + '_' + d[$scope.yAxis.key.toUpperCase()]})
+              .rollup(function(leaves){return leaves.length})
+              .entries(cfservice.cf().allFiltered())
+
+            $scope.matrix = matrix.map(function(d){
+              var x = d.key.split('_')[0]?d.key.split('_')[0]:'0',
+                  y = d.key.split('_')[1]?d.key.split('_')[1]:'0';
+              return {x:x, y:y, value: d.value}
+            })
 
           },
           function(error){

@@ -29,7 +29,7 @@ angular.module('hdilPollsApp')
       informativenesses = informativeness.group().reduceCount(),
       beauty = cf.dimension(function(d) { return d['BELLEZZA']}),
       beauties = beauty.group().reduceCount(),
-      overall = cf.dimension(function(d) { return d['VALORE-COMPLESSIVO']}),
+      overall = cf.dimension(function(d) { return d['VALORE COMPLESSIVO']}),
       overalls = overall.group().reduceCount();
 
 

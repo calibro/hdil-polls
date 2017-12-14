@@ -57,12 +57,20 @@
   <div class="row">
     <div class="col-sm-9">
       <div ng-show="tabModel == 'distribution'">
-        <div violinplot>
-          
-        </div>
+        <div violinplot></div>
       </div>
       <div ng-show="tabModel == 'correlation'">
-        ciao correlation
+        <div class="form-group col-sm-6">
+          <label>Asse X</label>
+          <select class="form-control" ng-model="xAxis" ng-options="d.key for d in dropdown" ng-change="selectChange()">
+          </select>
+        </div>
+        <div class="form-group col-sm-6 ">
+          <label>Asse Y</label>
+          <select class="form-control" ng-model="yAxis" ng-options="d.key for d in dropdown"  ng-change="selectChange()">
+          </select>
+        </div>
+        <div matrix></div>
       </div>
     </div>
     <div class="col-sm-3">
