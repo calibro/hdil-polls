@@ -14,7 +14,7 @@
   function matrix(selection){
     selection.each(function(data){
       var chart;
-      var margin = {top: 10, right: 10, bottom: 20, left: 15},
+      var margin = {top: 10, right: 10, bottom: 20, left: 20},
           chartWidth = width - margin.left - margin.right,
           chartHeight = height - margin.top - margin.bottom;
 
@@ -79,17 +79,31 @@
           return yScale(d.y)
         })
         .attr("fill", "#00C5CA")
+        .attr('class','matrix-circles')
         .attr('r',0)
         .transition()
         .attr('r',function(d){
           return rScale(d.value)
         })
+        .each(function(d){
+            $(this).tooltip({
+                'container': 'body',
+                'title': d.value
+            });
+          })
 
-      circles
+        circles.merge(circles)
         .transition()
         .attr('r',function(d){
           return rScale(d.value)
         })
+        .each(function(d){
+            $(this)
+              .attr('data-original-title', d.value)
+              .tooltip('fixTitle')
+          })
+
+
 
       /* axis */
 
@@ -100,10 +114,10 @@
             .attr('class', 'xAxis')
             .attr("transform", "translate(0," + chartHeight + ")")
             .call(
-              d3.axisBottom(xScale).tickSize(-chartHeight).tickPadding(10)
+              d3.axisBottom(xScale).tickSize(-chartHeight).tickPadding(10).tickSizeOuter(0)
             );
       }else{
-        xAxis.call(d3.axisBottom(xScale).tickSize(-chartHeight).tickPadding(10))
+        xAxis.call(d3.axisBottom(xScale).tickSize(-chartHeight).tickPadding(10).tickSizeOuter(0))
       }
 
       var yAxis = chart.select('.yAxis');

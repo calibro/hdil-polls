@@ -15,7 +15,7 @@ angular.module('hdilPollsApp')
         var chart = d3.select(element[0]);
 
         var chartWidth = element.width(),
-            chartHeight = 500;
+            chartHeight = 575;
 
         var violin = hdil.violin()
                .width(chartWidth)

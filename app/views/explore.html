@@ -9,7 +9,7 @@
         </div>
         <div class="row">
           <div class="col-sm-2" ng-repeat="viz in vizs">
-            <div class="thumb-viz" ng-click="changeViz(viz)" ng-class="{'thumb-viz-active': viz.id == vizSelected.id }" ng-style="{'background-image':'url(' + viz.thumb + ')'}" >
+            <div class="thumb-viz" ng-click="changeViz(viz)" ng-class="{'thumb-viz-active': viz.id == vizSelected.id }" ng-style="{'background-image':'url(images/' + viz.thumb + ')'}" >
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
 <div id="info" class="container" ng-show="tabModel == 'info'">
   <div class="row">
     <div class="col-sm-6">
-      <h5>descrizione:</h5>
+      <h5 class="tab-title">descrizione:</h5>
       <p>
         {{vizSelected.titolo}}
       </p>
@@ -53,20 +53,22 @@
   </div>
 </div>
 
-<div id="distribution" class="container" ng-show="tabModel == 'distribution' || tabModel == 'correlation'">
+<div id="vizs" class="container" ng-show="tabModel == 'distribution' || tabModel == 'correlation'">
   <div class="row">
     <div class="col-sm-9">
-      <div ng-show="tabModel == 'distribution'">
+      <div id="distribution" ng-show="tabModel == 'distribution'">
+        <h5 class="tab-title">Distribuzioni risposte per dimensione di qualità</h5>
         <div violinplot></div>
       </div>
-      <div ng-show="tabModel == 'correlation'">
+      <div id="correlation" ng-show="tabModel == 'correlation'">
+        <h5 class="tab-title">Correlazioni tra dimensioni di qualità</h5>
         <div class="form-group col-sm-6">
-          <label>Asse X</label>
+          <label class="axis-label">Asse X</label>
           <select class="form-control" ng-model="xAxis" ng-options="d.key for d in dropdown" ng-change="selectChange()">
           </select>
         </div>
-        <div class="form-group col-sm-6 ">
-          <label>Asse Y</label>
+        <div class="form-group col-sm-6">
+          <label class="axis-label">Asse Y</label>
           <select class="form-control" ng-model="yAxis" ng-options="d.key for d in dropdown"  ng-change="selectChange()">
           </select>
         </div>
@@ -74,9 +76,9 @@
       </div>
     </div>
     <div class="col-sm-3">
-      <h4>filtri</h4>
+      <h5 class="tab-title">FILTRI</h5>
       <div class="filter-head">
-        <h6>età</h6>
+        <h5>età</h5>
         <div class="reset" ng-click="filterBarsReset('age')">
           reset
         </div>
@@ -98,7 +100,7 @@
       </div>
 
       <div class="filter-head">
-        <h6>dispositivo</h6>
+        <h5>dispositivo</h5>
         <div class="reset" ng-click="filterBarsReset('device')">
           reset
         </div>
@@ -120,7 +122,7 @@
       </div>
 
       <div class="filter-head">
-        <h6>genere</h6>
+        <h5>genere</h5>
         <div class="reset" ng-click="filterBarsReset('sex')">
           reset
         </div>

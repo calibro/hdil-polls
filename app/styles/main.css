@@ -99,6 +99,7 @@ h1,h2,h3,h4,h5,h6{
 
 .bar:hover{
   opacity: 1;
+  border: 1px solid black;
 }
 
 .bars-container{
@@ -127,6 +128,12 @@ h1,h2,h3,h4,h5,h6{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid #5A6772;
+  margin-bottom: 10px;
+}
+
+.filter-head h5{
+  text-transform: uppercase;
 }
 
 .filter-head .reset{
@@ -144,7 +151,7 @@ h1,h2,h3,h4,h5,h6{
   background-color: white;
 }
 
-#info, #distribution, #correlation{
+#info, #vizs{
   background-color: white;
   color: #5A6772;
   margin-top: 15px;
@@ -201,7 +208,7 @@ h1,h2,h3,h4,h5,h6{
 .yAxis{
   font-family: 'Titillium Web', Arial, sans-serif;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .xAxis .tick text,
@@ -209,19 +216,42 @@ h1,h2,h3,h4,h5,h6{
   fill:#9B9B9B;
 }
 
-.xAxis .domain{
+#distribution .xAxis .domain{
   display: none;
+}
+
+#correlation .xAxis .domain{
+  stroke: #9B9B9B;
 }
 
 .yAxis .domain{
   stroke: #9B9B9B;
 }
 
-.yAxis .tick line{
+.yAxis .tick line,
+.xAxis .tick line{
   stroke: #9B9B9B;
   stroke-dasharray: 3,3;
+  pointer-events: none;
 }
 
+.matrix-circles:hover{
+  stroke:black;
+}
+
+.tab-title{
+  color:#01CCD0;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.axis-label{
+  font-weight: normal;
+}
+
+#correlation .form-control{
+  font-weight: bold;
+}
 /* OLD */
 
 /* explore */

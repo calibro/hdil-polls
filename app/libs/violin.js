@@ -13,7 +13,7 @@
   function violin(selection){
     selection.each(function(data){
       var chart;
-      var margin = {top: 10, right: 10, bottom: 20, left: 15},
+      var margin = {top: 10, right: 10, bottom: 20, left: 20},
           chartWidth = width - margin.left - margin.right,
           chartHeight = height - margin.top - margin.bottom;
 
@@ -209,10 +209,33 @@
         .attr("transform", function(d){
           return "translate(" + xViolinScale(d.key) +",0)"
         })
+        .each(function(d){
+            var html = "Q3: "+ d.values[2]+ "<br/>"
+              + "mean: "+ d3.format('.2f')(d.mean)+ "<br/>"
+              + "median: "+ d.values[1]+ "<br/>"
+              + "Q1: "+ d.values[0]+ "<br/>";
+
+            $(this).tooltip({
+                'html': true,
+                'container': 'body',
+                'title': html,
+                'placement': 'right'
+            });
+          })
 
       gBoxplot.attr("transform", function(d){
         return "translate(" + xViolinScale(d.key) +",0)"
       })
+      .each(function(d){
+          var html = "Q3: "+ d.values[2]+ "<br/>"
+            + "mean: "+ d3.format('.2f')(d.mean)+ "<br/>"
+            + "median: "+ d.values[1]+ "<br/>"
+            + "Q1: "+ d.values[0]+ "<br/>";
+
+          $(this)
+           .attr('data-original-title', html)
+           .tooltip('fixTitle')
+        })
 
       var boxplot =  chart.selectAll('g.g-boxplot').selectAll('rect')
                 .data(function(d){
