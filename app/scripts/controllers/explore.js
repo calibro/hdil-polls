@@ -191,17 +191,6 @@ angular.module('hdilPollsApp')
       $scope.updateMatrix = !$scope.updateMatrix;
     }
 
-    $scope.$watch('tabModel',function(newValue,oldValue){
-      if(newValue != oldValue && oldValue){
-
-        if(newValue == 'distribution'){
-
-        }else if (newValue == 'correlation') {
-
-        }
-      }
-    })
-
     //get the data
 
     apiservice.getSpreadsheetViz().then(
@@ -211,8 +200,7 @@ angular.module('hdilPollsApp')
           return d
         });
         $scope.vizSelected = $scope.vizs[0];
-        //$scope.tabModel = 'info';
-        $scope.tabModel = 'correlation';
+        $scope.tabModel = 'info';
 
         apiservice.getSpreadsheetData().then(
           function(data){
