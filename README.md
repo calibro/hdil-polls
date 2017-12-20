@@ -1,4 +1,6 @@
-# hdil-polls
+# Valore sociale della visualizzazione di open data di Regione Lombardia
+
+Parte del progetto "Il Valore Sociale degli Open Data" promosso da Regione Lombardia. Per ulteriori informazioni (anche di natura metodologica) è possibile contattare il coordinatore del progetto, il Dott. Ing. Federico Cabitza (cabitza @ disco.unimib.it)
 
 ## Installation
 If you want to run your instance of hdil locally on your machine, be sure you have the following requirements installed.
