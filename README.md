@@ -1,4 +1,4 @@
-# Human Data Interaction in Lombardia: Sviluppo di servizi di visualizzazione interattiva per il pubblico e l’amministratore	
+# Valore sociale della visualizzazione di open data di Regione Lombardia
 
 Parte del progetto per l'Università Bicocca riguardante "Il Valore Sociale degli Open Data" promosso da Regione Lombardia. Per ulteriori informazioni (anche di natura metodologica) è possibile contattare il coordinatore del progetto, il Dott. Ing. Federico Cabitza (cabitza @ disco.unimib.it)
 
