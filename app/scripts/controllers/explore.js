@@ -64,6 +64,8 @@ angular.module('hdilPollsApp')
         .rollup(function(leaves){return leaves.length})
         .entries(cfservice.cf().allFiltered())
 
+      console.log(cfservice.cf().allFiltered())
+
       $scope.matrix = matrix.map(function(d){
         var x = d.key.split('_')[0]?d.key.split('_')[0]:'0',
             y = d.key.split('_')[1]?d.key.split('_')[1]:'0';

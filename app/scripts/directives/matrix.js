@@ -23,41 +23,37 @@ angular.module('hdilPollsApp')
                .height(chartHeight)
                .scale(scope.scaleMatrix)
 
-       var rSquaredValues = scope.matrix.map(function(d){
-         return [+d.x,+d.y]
-       })
 
-       scope.r2 = rSquared(rSquaredValues)
+       scope.r2 = rSquared(scope.matrix)
 
         chart.datum(scope.matrix).call(matrix)
 
         scope.$watch('matrix.length',function(newValue,oldValue){
           if(newValue != oldValue){
-
-            var rSquaredValues = scope.matrix.map(function(d){
-              return [+d.x,+d.y]
-            })
-            scope.r2 = rSquared(rSquaredValues)
-
+            scope.r2 = rSquared(scope.matrix)
             chart.datum(scope.matrix).call(matrix.scale(scope.scaleMatrix))
           }
         })
 
         scope.$watch('updateMatrix',function(newValue,oldValue){
           if(newValue != oldValue){
-
-            var rSquaredValues = scope.matrix.map(function(d){
-              return [+d.x,+d.y]
-            })
-            scope.r2 = rSquared(rSquaredValues)
-
+            scope.r2 = rSquared(scope.matrix)
             chart.datum(scope.matrix).call(matrix.scale(scope.scaleMatrix))
           }
         })
 
         function rSquared(values){
-          var regressionLine = ss.linearRegressionLine(ss.linearRegression(values));
-          var r2 = ss.rSquared(values, regressionLine);
+
+          var rSquaredValues = [];
+          values.forEach(function(d){
+            var range = d3.range(d.value);
+            range.forEach(function(e){
+              rSquaredValues.push([+d.x,+d.y])
+            })
+          })
+
+          var regressionLine = ss.linearRegressionLine(ss.linearRegression(rSquaredValues));
+          var r2 = ss.rSquared(rSquaredValues, regressionLine);
           return r2;
         }
       }
