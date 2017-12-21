@@ -62,15 +62,19 @@
       </div>
       <div id="correlation" ng-show="tabModel == 'correlation'">
         <h5 class="tab-title">Correlazioni tra dimensioni di qualità</h5>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-5">
           <label class="axis-label">Asse X</label>
           <select class="form-control" ng-model="xAxis" ng-options="d.key for d in dropdown" ng-change="selectChange()">
           </select>
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-5">
           <label class="axis-label">Asse Y</label>
           <select class="form-control" ng-model="yAxis" ng-options="d.key for d in dropdown"  ng-change="selectChange()">
           </select>
+        </div>
+        <div class="form-group col-sm-2">
+          <label class="axis-label">Coefficiente R<sup>2</sup></label>
+          <b>{{ r2 | number:3}}</b>
         </div>
         <div matrix></div>
       </div>

@@ -15,6 +15,7 @@ angular.module('hdilPollsApp')
     $scope.tabModel;
     $scope.data = [];
     $scope.matrix = [];
+    $scope.r2=0;
 
     $scope.changeViz = function(viz){
       $scope.vizSelected = viz;
