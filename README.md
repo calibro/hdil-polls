@@ -68,3 +68,25 @@ The spreadsheet contains 2 sheets:
 * `VIZ` contains the information of the visualizations.
 
 The `headers` of both sheets **MUST NOT** be changed.
+
+The spreadsheet has to be always public otherwise it won't be accesible by the API. The publication settings are the following:
+
+![screen shot 2017-12-21 at 14 43 49](https://user-images.githubusercontent.com/1922342/34258520-8dd2506c-e65e-11e7-8f3d-526e4b0b9699.png)
+
+#### The VIZ sheet
+
+Each line is a visualization, if you want to add a new one be sure to fill the sheet with all the following informations
+
+* `url` - the original link of the visualization
+* `id`- a unique and incremental ID
+* `titolo` - the description of the visualization
+* `thumb` - the name of the file containing the image thumbnail of the visualization. it must be uploaded [here](https://github.com/calibro/hdil-polls/tree/gh-pages/images/ignore)
+* `url_embed` - the url used for the embedding. You can create it in 3 easy steps:
+  1. start from the `url` eg.: `http://public.tableau.com/views/Lombalgia_int2notitolo/lombalgia_int?:embed=y&:toolbar=no&:loadOrderID=0&:display_count=no`
+  2. remove everything after `?` eg.: `http://public.tableau.com/views/Lombalgia_int2notitolo/lombalgia_int?`
+  3. add `:showVizHome=no&:embed=true` eg.: `http://public.tableau.com/views/Lombalgia_int2notitolo/lombalgia_int?:showVizHome=no&:embed=true`
+  
+ #### The DATA sheet
+
+Each line is one user poll answer. Be sure to fill the column `ID` with the id of the related visualization (see the VIZ sheet)
+
